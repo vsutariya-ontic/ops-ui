@@ -1,0 +1,8 @@
+export enum queryKeys {
+    CART_LIST = "CART_LIST",
+    ITEM_LIST = "ITEM_LIST",
+    DEFAULT_TABLE = "DEFAULT_TABLE",
+    ORDER_LIST = "ORDER_LIST",
+    TABLE_LIST = "TABLE_LIST",
+    TOKEN = "TOKEN",
+}
