@@ -1,25 +1,19 @@
 import { useEffect, useState } from "react";
 import {
-    Alert,
     Autocomplete,
     Box,
     Button,
-    ButtonGroup,
     FormControlLabel,
-    Paper,
     Switch,
     TextField,
     Typography,
 } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "@emotion/react";
 import { useItemListQuery } from "../../../../services/data/useItemListQuery";
 import { useTableListQuery } from "../../../../services/data/useTableListQuery";
 import { useDefaultTableQuery } from "../../../../services/data/useDefaultTableQuery";
 import { useAddOrderMutation } from "../../../../services/data/useAddOrderMutation";
 import { useCartListQuery } from "../../../../services/data/useCartListQuery";
-import { useCartItemSync } from "../../../../hooks/useCartItemSync";
 import { CartItem } from "./CartItem";
 
 interface CartProps {
@@ -71,23 +65,24 @@ export const Cart = (props: CartProps) => {
             alert("No items in cart");
             return;
         }
-        try{
+        try {
             const response = await addOrderMutation.mutateAsync();
-        if (response) {
-            setFormState({
-                makeDefault: false,
-                table: null,
-                instructions: "",
-            });
-            setIsCartOpen(false);
-        }
-        }catch(err){
+            if (response) {
+                setFormState({
+                    makeDefault: false,
+                    table: null,
+                    instructions: "",
+                });
+                setIsCartOpen(false);
+            }
+        } catch (err) {
             console.log(err);
         }
     };
     return (
         <Box
             component="form"
+            onSubmit={handlePlaceOrder}
             sx={{
                 backgroundColor: palette.background.default,
             }}
@@ -193,7 +188,6 @@ export const Cart = (props: CartProps) => {
                 <Button
                     type="submit"
                     disabled={addOrderMutation.isLoading}
-                    onClick={handlePlaceOrder}
                     variant="contained"
                     className="rounded-lg"
                 >
