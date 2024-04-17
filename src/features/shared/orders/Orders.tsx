@@ -1,3 +1,4 @@
+import { useTheme } from "@emotion/react";
 import {
     Box,
     Button,
@@ -5,11 +6,10 @@ import {
     LinearProgress,
     useMediaQuery,
 } from "@mui/material";
-import { useOrderListQuery } from "../../../services/data/useOrderListQuery";
 import { useState } from "react";
-import { useItemListQuery } from "../../../services/data/useItemListQuery";
-import { useTheme } from "@emotion/react";
 import GhostItem from "../../../components/GhostItem";
+import { useItemListQuery } from "../../../services/data/useItemListQuery";
+import { useOrderListQuery } from "../../../services/data/useOrderListQuery";
 import { OrderItem } from "./OrderItem";
 
 const orderCategories = [
@@ -101,11 +101,11 @@ const Orders = () => {
                     orderList.data.map((elem: any) => {
                         const order = elem.order;
                         const item = itemList.data.find(
-                            (item: any) => item.item_id === order.item_id
+                            (item: any) => item.itemId === order.itemId
                         );
                         return (
                             <OrderItem
-                                key={order.order_id}
+                                key={order.orderId}
                                 order={order}
                                 item={item}
                             />

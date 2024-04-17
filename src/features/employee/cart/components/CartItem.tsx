@@ -1,7 +1,7 @@
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, ButtonGroup, Paper, Typography } from "@mui/material";
 import { useCartItemSync } from "../../../../hooks/useCartItemSync";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 interface CartItemProps {
     elem: CartItem;
@@ -28,7 +28,7 @@ export const CartItem = ({ elem, item }: CartItemProps) => {
     };
     return (
         <Paper
-            key={elem.item_id}
+            key={elem.itemId}
             className="flex justify-between items-center py-2 px-2 w-[350px] sm:w-[450px] transition-colors duration-500"
         >
             <Typography
@@ -36,10 +36,10 @@ export const CartItem = ({ elem, item }: CartItemProps) => {
                 className="w-[200px] overflow-auto space-x-4 items-center flex"
             >
                 <img
-                    src={item.image_url}
+                    src={item.imageUrl}
                     className="h-[40px] w-[50px] rounded-sm"
                 />
-                <span>{item?.item_name}</span>
+                <span>{item?.itemName}</span>
             </Typography>
             <div className="flex">
                 <ButtonGroup size="small">

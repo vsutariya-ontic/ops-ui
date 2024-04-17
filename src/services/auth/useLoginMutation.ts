@@ -7,9 +7,9 @@ interface UseLoginMutationProps {
   rememberMe: boolean;
 }
 interface UserLoginRequest {
-  user_email: string;
-  user_password: string;
-  user_role: string;
+  userEmail: string;
+  userPassword: string;
+  userRole: string;
 }
 const fetchLoginInfo = async (loginRequestData: UserLoginRequest) => {
   try {
@@ -33,19 +33,19 @@ export const useLoginMutation = (props: UseLoginMutationProps) => {
     onSuccess: (response) => {
       if (response.success) {
         login({
-          email: response.userData.user_email,
-          username: response.userData.user_name,
-          teamId: response.userData.team_id,
-          role: response.userData.user_role.toLowerCase(),
+          email: response.userData.userEmail,
+          username: response.userData.userName,
+          teamId: response.userData.teamId,
+          role: response.userData.userRole.toLowerCase(),
         });
 
-        Cookies.set("auth", response.auth_token);
-        console.log("auth", response.auth_token);
+        Cookies.set("auth", response.authToken);
+        console.log("auth", response.authToken);
 
         if (rememberMe) {
-          localStorage.setItem("auth", response.auth_token);
+          localStorage.setItem("auth", response.authToken);
         } else {
-          sessionStorage.setItem("auth", response.auth_token);
+          sessionStorage.setItem("auth", response.authToken);
         }
         navigate("/");
       }

@@ -1,7 +1,7 @@
-import { useItemListQuery } from "../../../../services/data/useItemListQuery";
 import { Grid, LinearProgress } from "@mui/material";
-import GhostItem from "../../../../components/GhostItem";
 import { useAuthStore } from "../../../../authstore/store";
+import GhostItem from "../../../../components/GhostItem";
+import { useItemListQuery } from "../../../../services/data/useItemListQuery";
 import { CreateNewItemButton } from "../../../pantryboy/createitem/CreateNewItemButton";
 import { MenuItemCard } from "./MenuItemCard";
 
@@ -53,7 +53,7 @@ export const MenuItems = (props: any) => {
                         return (
                             <MenuItemCard
                                 index={index}
-                                key={item.item_id}
+                                key={item.itemId}
                                 item={item}
                             />
                         );

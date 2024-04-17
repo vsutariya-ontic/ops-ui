@@ -1,17 +1,17 @@
 import { useTheme } from "@emotion/react";
-import { useAuthStore } from "../../../../authstore/store";
-import { useCartItemMutation } from "../../../../services/data/useCartItemMutation";
-import { useCartItemSync } from "../../../../hooks/useCartItemSync";
-import { Button, ButtonGroup, Paper, Tooltip, Typography } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, ButtonGroup, Paper, Tooltip, Typography } from "@mui/material";
+import { useAuthStore } from "../../../../authstore/store";
+import { useCartItemSync } from "../../../../hooks/useCartItemSync";
+import { useCartItemMutation } from "../../../../services/data/useCartItemMutation";
 
 export const MenuItemCard = (props: any) => {
     const { palette }: any = useTheme();
-    const user_email = useAuthStore((state) => state.email);
+    const userEmail = useAuthStore((state) => state.email);
     const role = useAuthStore((state) => state.role);
     const { item }: any = props;
-    const mutation = useCartItemMutation(user_email, String(item.item_id));
+    const mutation = useCartItemMutation(userEmail, String(item.itemId));
     const {
         displayCount,
         increaseCount,
@@ -43,7 +43,7 @@ export const MenuItemCard = (props: any) => {
                 <div className="flex flex-col items-center p-2">
                     <img
                         className="rounded-2xl h-[140px]"
-                        src={item.image_url}
+                        src={item.imageUrl}
                         height={140}
                         width={140}
                     />
@@ -51,13 +51,13 @@ export const MenuItemCard = (props: any) => {
                         variant="h6"
                         className="flex justify-center mt-4"
                     >
-                        {item.item_name}
+                        {item.itemName}
                     </Typography>
                     <Typography
                         variant="h6"
                         className="flex justify-center text-xs"
                     >
-                        {item.time_to_make} mins
+                        {item.timeToMake} mins
                     </Typography>
                 </div>
             </Tooltip>

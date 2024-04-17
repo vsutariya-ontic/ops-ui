@@ -9,10 +9,10 @@ const fetchTokenValidity = async (login: Function, logout: Function) => {
     console.log(response);
     if (response.success) {
       const payload = {
-        email: response.userData.user_email,
-        username: response.userData.user_name,
-        teamId: response.userData.team_id,
-        role: response.userData.user_role,
+        email: response.userData.userEmail,
+        username: response.userData.userName,
+        teamId: response.userData.teamId,
+        role: response.userData.userRole,
       };
       login(payload);
     } else {

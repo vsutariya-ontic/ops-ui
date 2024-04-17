@@ -1,25 +1,24 @@
-import { useEffect, useReducer, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import Container from "@mui/material/Container";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import * as EmailValidator from "email-validator";
+import { useEffect, useReducer, useState } from "react";
 
+import { useTheme } from "@emotion/react";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { LinearProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useAddUser } from "../../../services/auth/useAddUserMutation";
+import { useLoginMutation } from "../../../services/auth/useLoginMutation";
+import { DEFAULT_STATE } from "./data";
 import { AuthFormProps } from "./types";
 import { authFormActions, formReducer } from "./utils";
-import { useNavigate } from "react-router-dom";
-import { DEFAULT_STATE } from "./data";
-import { LinearProgress } from "@mui/material";
-import { useLoginMutation } from "../../../services/auth/useLoginMutation";
-import { useAddUser } from "../../../services/auth/useAddUserMutation";
-import { useTheme } from "@emotion/react";
 
 const Form = (props: AuthFormProps) => {
     const { role, setRole, type } = props;
@@ -67,9 +66,9 @@ const Form = (props: AuthFormProps) => {
     const handleLogin = async () => {
         try {
             const loginResponse = await loginMutation.mutateAsync({
-                user_email: state.email,
-                user_password: state.password,
-                user_role: role,
+                userEmail: state.email,
+                userPassword: state.password,
+                userRole: role,
             });
             if (!loginResponse.success) {
                 dispatch(authFormActions.reset());

@@ -13,7 +13,7 @@ const fetchItems = async (props: any) => {
 
   try {
     const response = await opsPostRequest(`/getItem${query}`, {
-      auth_token: token,
+      authToken: token,
     });
     if (response.success) {
       return response.items;

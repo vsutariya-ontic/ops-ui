@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useTheme } from "@emotion/react";
 import {
     Autocomplete,
     Box,
@@ -8,12 +8,12 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import { useTheme } from "@emotion/react";
-import { useItemListQuery } from "../../../../services/data/useItemListQuery";
-import { useTableListQuery } from "../../../../services/data/useTableListQuery";
-import { useDefaultTableQuery } from "../../../../services/data/useDefaultTableQuery";
+import { useEffect, useState } from "react";
 import { useAddOrderMutation } from "../../../../services/data/useAddOrderMutation";
 import { useCartListQuery } from "../../../../services/data/useCartListQuery";
+import { useDefaultTableQuery } from "../../../../services/data/useDefaultTableQuery";
+import { useItemListQuery } from "../../../../services/data/useItemListQuery";
+import { useTableListQuery } from "../../../../services/data/useTableListQuery";
 import { CartItem } from "./CartItem";
 
 interface CartProps {
@@ -43,7 +43,7 @@ export const Cart = (props: CartProps) => {
                 const tables = await tableList.refetch();
                 const def = await defaultTable.refetch();
                 const targetObject = tables.data.find(
-                    (elem: any) => elem.table_no === def.data.table_no
+                    (elem: any) => elem.tableNo === def.data.tableNo
                 );
                 if (targetObject) {
                     setFormState({
@@ -105,11 +105,11 @@ export const Cart = (props: CartProps) => {
                                     {cartList.data.map((elem: any) => {
                                         const item = allItemList.data.find(
                                             (item: any) =>
-                                                item.item_id === elem.item_id
+                                                item.itemId === elem.itemId
                                         );
                                         return (
                                             <CartItem
-                                                key={item.item_name}
+                                                key={item.itemName}
                                                 elem={elem}
                                                 item={item}
                                             />
@@ -136,7 +136,7 @@ export const Cart = (props: CartProps) => {
                                 }
                                 value={formState.table}
                                 getOptionLabel={(tableItem: Table) =>
-                                    tableItem ? String(tableItem.table_no) : ""
+                                    tableItem ? String(tableItem.tableNo) : ""
                                 }
                                 sx={{
                                     width: 300,

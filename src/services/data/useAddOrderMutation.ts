@@ -2,15 +2,15 @@ import { useMutation, useQueryClient } from "react-query";
 import { opsPostRequest } from "../../lib/api";
 import { queryKeys } from "../queryKeys";
 
-const addDefaultTable = async (table_no: number | null | undefined) => {
+const addDefaultTable = async (tableNo: number | null | undefined) => {
   try {
     let token = String(localStorage.getItem("auth"));
     if (!token) {
       token = String(sessionStorage.getItem("auth"));
     }
     const response = opsPostRequest("/add-default-table", {
-      auth_token: token,
-      table_no: table_no,
+      authToken: token,
+      tableNo: tableNo,
     });
     return response;
   } catch (err) {
@@ -21,13 +21,13 @@ const addDefaultTable = async (table_no: number | null | undefined) => {
 const placeOrders = async (
   token: string,
   instructions: string,
-  table_no: number | undefined
+  tableNo: number | undefined
 ) => {
   try {
     const response = await opsPostRequest("/add-order", {
-      auth_token: token,
+      authToken: token,
       instructions: instructions,
-      table_no: table_no,
+      tableNo: tableNo,
     });
     if (response.success) {
       return true;
@@ -47,10 +47,10 @@ export const useAddOrderMutation = ({ formState }: any) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: () =>
-      placeOrders(token, formState.instructions, formState.table?.table_no),
+      placeOrders(token, formState.instructions, formState.table?.tableNo),
     onSuccess: async (response) => {
       if (formState.makeDefault) {
-        await addDefaultTable(formState.table?.table_no);
+        await addDefaultTable(formState.table?.tableNo);
       }
       if (response) {
         queryClient.invalidateQueries([queryKeys.CART_LIST]);

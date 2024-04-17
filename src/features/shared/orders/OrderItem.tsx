@@ -1,7 +1,7 @@
 import { Button, Menu, MenuItem, Paper } from "@mui/material";
+import { useState } from "react";
 import { useAuthStore } from "../../../authstore/store";
 import { useUpdateOrderStatusMutation } from "../../../services/data/useUpdateOrderStatusMutation";
-import { useState } from "react";
 
 interface OrderItemProps {
     order: Order;
@@ -62,13 +62,13 @@ export const OrderItem = (props: OrderItemProps) => {
             <div className="w-[60%] flex justify-between space-x-4">
                 <div className="flex space-x-4">
                     <div className="w-[80px] hidden sm:flex justify-center">
-                        <img src={item.image_url} className="h-[70px]" />
+                        <img src={item.imageUrl} className="h-[70px]" />
                     </div>
                     <div className="flex flex-col ml-6 justify-center">
                         <span className="text-xs md:text-sm text-gray-500">
                             {item.category}
                         </span>
-                        <span className="md:text-lg">{item.item_name}</span>
+                        <span className="md:text-lg">{item.itemName}</span>
                     </div>
                 </div>
                 <div className="flex flex-col items-center justify-center w-[45%] ">
@@ -89,11 +89,11 @@ export const OrderItem = (props: OrderItemProps) => {
                 <div className="flex flex-col justify-center h-full">
                     {role === "pantryboy" && (
                         <span className="text-sm md:text-md">
-                            {order.user_name}
+                            {order.userName}
                         </span>
                     )}
                     <span className="text-xs md:text-sm text-gray-500">
-                        Table : {order.table_no}
+                        Table : {order.tableNo}
                     </span>
                     <span className="text-xs md:text-sm text-gray-500">
                         Quantity : {order.quantity}
@@ -101,10 +101,10 @@ export const OrderItem = (props: OrderItemProps) => {
                 </div>
                 <div className="hidden md:flex flex-col justify-center h-full">
                     <span className="text-xs md:text-sm text-gray-500">
-                        {order.order_date_time.slice(0, 10)}
+                        {order.orderDateTime.slice(0, 10)}
                     </span>
                     <span className="text-sm md:text-md">
-                        {order.order_date_time.slice(11, 16)}
+                        {order.orderDateTime.slice(11, 16)}
                     </span>
                 </div>
                 <div className="flex h-full items-center">
@@ -128,7 +128,7 @@ export const OrderItem = (props: OrderItemProps) => {
                                     disabled={orderStatusMutation.isLoading}
                                     onClick={() => {
                                         orderStatusMutation.mutateAsync({
-                                            order_id: order.order_id,
+                                            orderId: order.orderId,
                                             newStatus: "preparing",
                                         });
                                     }}
@@ -141,7 +141,7 @@ export const OrderItem = (props: OrderItemProps) => {
                                     disabled={orderStatusMutation.isLoading}
                                     onClick={() => {
                                         orderStatusMutation.mutateAsync({
-                                            order_id: order.order_id,
+                                            orderId: order.orderId,
                                             newStatus: "completed",
                                         });
                                     }}
