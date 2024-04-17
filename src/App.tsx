@@ -5,7 +5,7 @@ import { Box, CircularProgress, ThemeProvider } from "@mui/material";
 import { useThemeStore } from "./theme/theme";
 import { useValidateTokenQuery } from "./services/auth/useValidateTokenQuery";
 import Topbar from "./layouts/Topbar";
-import { useTheme } from "@emotion/react";
+
 export const App = () => {
     const theme = useThemeStore((state: any) => state.theme);
     const { palette } = theme;
@@ -14,8 +14,8 @@ export const App = () => {
     const { isLoading } = useValidateTokenQuery();
     if (isLoading) {
         return (
-            <div className="flex min-h-[100vh] min-w-[100vw] justify-center items-center">
-                <CircularProgress className="text-[rgb(175,106,255)]" />
+            <div className="flex h-[100vh] w-[100vw] justify-center items-center">
+                <CircularProgress className={`text-[${palette.primary}]`} />
             </div>
         );
     }
@@ -41,9 +41,9 @@ export const App = () => {
                                             element={
                                                 isLogged
                                                     ? route.element
-                                                          .authenticated
+                                                        .authenticated
                                                     : route.element
-                                                          .unAuthenticated
+                                                        .unAuthenticated
                                             }
                                         ></Route>
                                     );
