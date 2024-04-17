@@ -6,16 +6,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box } from "@mui/material";
+import { useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../authstore/store";
 import { useThemeStore } from "../theme/theme";
-import { useNavigate } from "react-router-dom";
-import { useQueryClient } from "react-query";
 
 const Topbar = (props: any) => {
     const queryClient = useQueryClient();
     const role = useAuthStore((state) => state.role);
     const navigate = useNavigate();
-    const username = useAuthStore((state) => state.username);
+    const userFirstName = useAuthStore((state) => state.userFirstName);
     const toggleTheme = useThemeStore((state: any) => state.toggleTheme);
     const logout = useAuthStore((state) => state.logout);
     const { palette }: any = useTheme();
@@ -51,7 +51,7 @@ const Topbar = (props: any) => {
                         />
                     </div>
                 </button>
-                {role !== "" && <span>Hello {username}!</span>}
+                {role !== "" && <span>Hello {userFirstName}!</span>}
             </Box>
             <Box className="flex items-center space-x-4 lg:space-x-8">
                 {role !== "" && (

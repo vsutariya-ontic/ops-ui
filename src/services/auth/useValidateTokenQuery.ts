@@ -1,20 +1,20 @@
 import { UseQueryOptions, useQuery } from "react-query";
 import { useAuthStore } from "../../authstore/store";
-import { opsPostRequest } from "../../lib/api";
+import { opsGetRequest } from "../../lib/api";
 import { queryKeys } from "../queryKeys";
 
 const fetchTokenValidity = async (login: Function, logout: Function) => {
   try {
-    const response = await opsPostRequest("/validate", {});
+    const response = await opsGetRequest("/validate");
     console.log(response);
     if (response.success) {
-      const payload = {
-        email: response.userData.userEmail,
-        username: response.userData.userName,
-        teamId: response.userData.teamId,
-        role: response.userData.userRole,
-      };
-      login(payload);
+      login({
+        email: response.data.userEmail,
+        userFirstName: response.data.userFirstName,
+        userLastName: response.data.userLastName,
+        teamId: response.data.teamId,
+        role: response.data.userRole,
+      });
     } else {
       localStorage.removeItem("auth");
       logout();

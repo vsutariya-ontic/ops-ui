@@ -6,7 +6,8 @@ import { opsPostRequest } from "../../lib/api";
 const addNewUser = async (state: AuthFormState, role: string) => {
   try {
     const response = await opsPostRequest("/signup", {
-      userName: state.firstName + " " + state.lastName,
+      userFirstName: state.firstName,
+      userLastName: state.lastName,
       userEmail: state.email,
       userPassword: state.password,
       userRole: String(role).toLowerCase(),

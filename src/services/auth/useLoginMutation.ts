@@ -33,19 +33,20 @@ export const useLoginMutation = (props: UseLoginMutationProps) => {
     onSuccess: (response) => {
       if (response.success) {
         login({
-          email: response.userData.userEmail,
-          username: response.userData.userName,
-          teamId: response.userData.teamId,
-          role: response.userData.userRole.toLowerCase(),
+          email: response.data.userEmail,
+          userFirstName: response.data.userFirstName,
+          userLastName: response.data.userLastName,
+          teamId: response.data.teamId,
+          role: response.data.userRole.toLowerCase(),
         });
 
-        Cookies.set("auth", response.authToken);
-        console.log("auth", response.authToken);
+        Cookies.set("auth", response.data.authToken);
+        console.log("auth", response.data);
 
         if (rememberMe) {
-          localStorage.setItem("auth", response.authToken);
+          localStorage.setItem("auth", response.data.authToken);
         } else {
-          sessionStorage.setItem("auth", response.authToken);
+          sessionStorage.setItem("auth", response.data.authToken);
         }
         navigate("/");
       }

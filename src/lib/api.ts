@@ -26,3 +26,26 @@ export const opsPostRequest = async (endpoint: string, body: any) => {
     throw new Error(`Error fetching data from ${BASE_URL}${endpoint}`);
   }
 };
+
+export const opsGetRequest = async (endpoint: string) => {
+  try {
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
+      method: "GET",
+      headers: {
+        Authorization: String(
+          Cookies.get("auth") ||
+            String(
+              localStorage.getItem("auth") || sessionStorage.getItem("auth")
+            )
+        ),
+      },
+      //   credentials: "include", // Send cookies with the request // deployment time pe dekhte he
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+    throw new Error(`Error fetching data from ${BASE_URL}${endpoint}`);
+  }
+};

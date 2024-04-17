@@ -3,13 +3,15 @@ import { create } from "zustand";
 const DEFAULT_STATE = {
   isLogged: false,
   email: "",
-  username: "",
+  userFirstName: "",
+  userLastName: "",
   teamId: "",
   role: "",
 };
 interface LoginProps {
   email: string;
-  username: string;
+  userFirstName: string;
+  userLastName: string;
   tableNo?: number;
   teamId: string;
   role: string;
@@ -17,14 +19,15 @@ interface LoginProps {
 export interface AuthStore {
   isLogged: boolean;
   email: string;
-  username: string;
+  userFirstName: string;
+  userLastName: string;
   tableNo?: number;
   teamId: string;
   role: string;
   login: (props: LoginProps) => void;
   logout: () => void;
 }
-export const useAuthStore = create<AuthStore>((set) => {
+export const useAuthStore = create<AuthStore>((set, state) => {
   return {
     ...DEFAULT_STATE,
     login: (props: LoginProps) => {
@@ -34,6 +37,7 @@ export const useAuthStore = create<AuthStore>((set) => {
       });
     },
     logout: () => {
+      console.log(state());
       localStorage.removeItem("auth");
       sessionStorage.removeItem("auth");
       Cookies.remove("auth");
