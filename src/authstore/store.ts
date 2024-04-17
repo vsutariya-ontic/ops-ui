@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { create } from "zustand";
 const DEFAULT_STATE = {
   isLogged: false,
@@ -35,6 +36,7 @@ export const useAuthStore = create<AuthStore>((set) => {
     logout: () => {
       localStorage.removeItem("auth");
       sessionStorage.removeItem("auth");
+      Cookies.remove("auth");
       set(DEFAULT_STATE);
     },
   };
