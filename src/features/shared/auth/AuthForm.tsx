@@ -14,8 +14,8 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LinearProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useAddUser } from "../../../services/auth/useAddUserMutation";
 import { useLoginMutation } from "../../../services/auth/useLoginMutation";
+import { useSignupMutation } from "../../../services/auth/useSignupMutation";
 import { DEFAULT_STATE } from "./data";
 import { AuthFormProps } from "./types";
 import { authFormActions, formReducer } from "./utils";
@@ -29,7 +29,7 @@ const Form = (props: AuthFormProps) => {
         rememberMe: state.rememberMe,
     });
 
-    const addUserMutation = useAddUser();
+    const addUserMutation = useSignupMutation();
     const incorrect =
         !loginMutation.isLoading &&
         loginMutation.data &&

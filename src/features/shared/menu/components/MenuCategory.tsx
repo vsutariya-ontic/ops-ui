@@ -1,5 +1,5 @@
 import { Button, Grid, useMediaQuery } from "@mui/material";
-import { useAuthStore } from "../../../../authstore/store";
+import { useAuthStore } from "../../../../managers/authStore";
 
 export const MenuCategory = (props: any) => {
     const role = useAuthStore((state) => state.role);

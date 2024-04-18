@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
-import BaseLayout from "./layouts/RoleLayout";
 import AuthLayout from "./features/shared/auth/AuthLayout";
-import { AuthStore } from "./authstore/store";
+import BaseLayout from "./layouts/RoleLayout";
+import { AuthStore } from "./managers/authStore";
 
 const HOME: any = {
     'employee': <BaseLayout path='/' />,

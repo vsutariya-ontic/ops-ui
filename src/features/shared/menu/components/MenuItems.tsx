@@ -1,6 +1,6 @@
 import { Grid, LinearProgress } from "@mui/material";
-import { useAuthStore } from "../../../../authstore/store";
 import GhostItem from "../../../../components/GhostItem";
+import { useAuthStore } from "../../../../managers/authStore";
 import { useItemListQuery } from "../../../../services/data/useItemListQuery";
 import { CreateNewItemButton } from "../../../pantryboy/createitem/CreateNewItemButton";
 import { MenuItemCard } from "./MenuItemCard";
@@ -38,7 +38,7 @@ export const MenuItems = (props: any) => {
             )}
             {!isLoading && (
                 <>
-                    {role === "employee" && !items.length && (
+                    {role === "employee" && !items?.length && (
                         <div className="w-full flex justify-center">
                             No items in {category !== "All" ? category : ""}
                         </div>
@@ -49,7 +49,7 @@ export const MenuItems = (props: any) => {
                             <GhostItem variant="createItemButton" />
                         </CreateNewItemButton>
                     )}
-                    {items.map((item: Item, index: number) => {
+                    {items?.map((item: Item, index: number) => {
                         return (
                             <MenuItemCard
                                 index={index}

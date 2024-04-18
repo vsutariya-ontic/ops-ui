@@ -1,10 +1,10 @@
-interface Team {
+export interface Team {
   teamId: string;
   teamName: string;
   teamLocation: string;
 }
 
-interface Item {
+export interface Item {
   category: string;
   imageUrl: string;
   ingredients?: string;
@@ -14,14 +14,14 @@ interface Item {
   timeToMake: number;
 }
 
-interface CartItem {
+export interface CartItem {
   itemId: string;
   userId: string;
   quantity: number;
   creation_time?: Date;
 }
 
-interface Order {
+export interface Order {
   instructions: string;
   itemId: string;
   orderDateTime: string;
@@ -33,7 +33,26 @@ interface Order {
   userName: string;
 }
 
-interface Table {
-  tableNo: number;
-  teamId: string;
+export interface Table {
+  tableId: string;
+  tableNo?: number | string;
+  tableName?: string;
+  teamId?: string;
+}
+
+export interface RevisedOrder {
+  orderId?: string;
+  userId: string;
+  items: Array<any>;
+  status: string;
+  createdTime: any;
+  instructions: string;
+  table: any;
+}
+
+export enum OrderStatus {
+  IN_CART = "IN_CART",
+  PLACED = "PLACED",
+  ACCEPTED = "ACCEPTED",
+  COMPLETED = "COMPLETED",
 }

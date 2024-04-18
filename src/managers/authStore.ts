@@ -1,7 +1,8 @@
 import Cookies from "js-cookie";
 import { create } from "zustand";
-const DEFAULT_STATE = {
+const DEFAULT_AUTH_STATE = {
   isLogged: false,
+  userId: "",
   email: "",
   userFirstName: "",
   userLastName: "",
@@ -9,39 +10,52 @@ const DEFAULT_STATE = {
   role: "",
 };
 interface LoginProps {
+  userId: string;
   email: string;
   userFirstName: string;
   userLastName: string;
   tableNo?: number;
   teamId: string;
   role: string;
+  defaultTable?: any;
 }
 export interface AuthStore {
   isLogged: boolean;
+  userId: string;
   email: string;
   userFirstName: string;
   userLastName: string;
   tableNo?: number;
   teamId: string;
   role: string;
-  login: (props: LoginProps) => void;
+  defaultTable?: any;
+  login: (
+    props: LoginProps,
+    initCartManager: Function,
+    orderQueryFn: Function
+  ) => void;
   logout: () => void;
 }
+
 export const useAuthStore = create<AuthStore>((set, state) => {
   return {
-    ...DEFAULT_STATE,
-    login: (props: LoginProps) => {
+    ...DEFAULT_AUTH_STATE,
+    login: (
+      props: LoginProps,
+      initCartManager: Function,
+      orderQueryFn: Function
+    ) => {
       set({
         isLogged: true,
         ...props,
       });
+      initCartManager(orderQueryFn);
     },
     logout: () => {
-      console.log(state());
       localStorage.removeItem("auth");
       sessionStorage.removeItem("auth");
       Cookies.remove("auth");
-      set(DEFAULT_STATE);
+      set(DEFAULT_AUTH_STATE);
     },
   };
 });

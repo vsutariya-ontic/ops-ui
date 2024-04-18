@@ -2,8 +2,8 @@ import { useTheme } from "@emotion/react";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, ButtonGroup, Paper, Tooltip, Typography } from "@mui/material";
-import { useAuthStore } from "../../../../authstore/store";
 import { useCartItemSync } from "../../../../hooks/useCartItemSync";
+import { useAuthStore } from "../../../../managers/authStore";
 import { useCartItemMutation } from "../../../../services/data/useCartItemMutation";
 
 export const MenuItemCard = (props: any) => {

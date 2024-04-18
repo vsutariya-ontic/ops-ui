@@ -1,6 +1,6 @@
 import { Button, Menu, MenuItem, Paper } from "@mui/material";
 import { useState } from "react";
-import { useAuthStore } from "../../../authstore/store";
+import { useAuthStore } from "../../../managers/authStore";
 import { useUpdateOrderStatusMutation } from "../../../services/data/useUpdateOrderStatusMutation";
 
 interface OrderItemProps {

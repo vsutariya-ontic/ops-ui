@@ -1,13 +1,11 @@
 import { UseQueryOptions, useQuery } from "react-query";
-import { opsPostRequest } from "../../lib/api";
+import { opsGetRequest } from "../../lib/api";
 import { queryKeys } from "../queryKeys";
+
 const fetchTableList = async () => {
   try {
-    const token = JSON.parse(String(localStorage.getItem("auth")));
-    const response = await opsPostRequest("/get-table-list", {
-      authToken: token,
-    });
-    return response.tables;
+    const response = await opsGetRequest("/table");
+    return response.data;
   } catch (err) {
     console.log(err);
     return [];

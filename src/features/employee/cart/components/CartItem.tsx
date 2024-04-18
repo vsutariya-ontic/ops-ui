@@ -2,13 +2,24 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, ButtonGroup, Paper, Typography } from "@mui/material";
 import { useCartItemSync } from "../../../../hooks/useCartItemSync";
+import { useCartManager } from "../../../../managers/cartManager";
+import { CartItem as CartItemType, Item } from "../../../../types/general";
 
 interface CartItemProps {
-    elem: CartItem;
+    elem: CartItemType;
     item: Item;
 }
 
 export const CartItem = ({ elem, item }: CartItemProps) => {
+
+    /* State variables */
+    const itemsInManager = useCartManager(state => state.items);
+    const getItemCount = useCartManager(state => state.getItemCount);
+    const updateItemCount = useCartManager(state => state.updateItemCount);
+
+    /* Constants */
+    const itemCount = getItemCount(item.itemId);
+    /* Queries & Mutations */
     const {
         displayCount,
         increaseCount,
@@ -16,16 +27,19 @@ export const CartItem = ({ elem, item }: CartItemProps) => {
         deleteCartItem,
         isLoading,
     } = useCartItemSync(item, 300);
+
+    /* Helper functions */
     const add = () => {
-        increaseCount();
+        updateItemCount(item, itemCount + 1);
     };
     const remove = () => {
-        if (displayCount > 0) decreaseCount();
+        if (displayCount > 0) updateItemCount(item, itemCount - 1);
     };
     const reset = (e: any) => {
         e.preventDefault();
-        deleteCartItem();
+        updateItemCount(item, 0);
     };
+
     return (
         <Paper
             key={elem.itemId}
@@ -44,7 +58,7 @@ export const CartItem = ({ elem, item }: CartItemProps) => {
             <div className="flex">
                 <ButtonGroup size="small">
                     <Button onClick={remove}>-</Button>
-                    <Button className="cursor-default">{displayCount}</Button>
+                    <Button className="cursor-default">{itemCount}</Button>
                     <Button onClick={add}>+</Button>
                 </ButtonGroup>
             </div>
