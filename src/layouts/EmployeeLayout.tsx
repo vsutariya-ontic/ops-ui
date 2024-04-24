@@ -3,7 +3,6 @@ import { MenuLayout } from "../features/shared/menu/MenuLayout";
 import Orders from "../features/shared/orders/Orders";
 
 export const EmployeeLayout = ({ path }: { path: string }) => {
-
     return (
         <>
             {path === "/" && <MenuLayout />}

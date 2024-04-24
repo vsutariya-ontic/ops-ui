@@ -1,4 +1,4 @@
-import { useAuthStore } from "../managers/authStore";
+import { useAuthStore } from "../authstore/store";
 import { EmployeeLayout } from "./EmployeeLayout";
 import { PantryboyLayout } from "./PantryboyLayout";
 

@@ -1,6 +1,6 @@
 import { UseQueryOptions, useQuery } from "react-query";
+import { useAuthStore } from "../../authstore/store";
 import { opsPostRequest } from "../../lib/api";
-import { useAuthStore } from "../../managers/authStore";
 import { queryKeys } from "../queryKeys";
 
 const fetchDefaultTable = async (userEmail: string) => {

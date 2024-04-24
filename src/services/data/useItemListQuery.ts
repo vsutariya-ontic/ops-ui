@@ -1,5 +1,5 @@
 import { UseQueryOptions, useQuery } from "react-query";
-import { opsGetRequest } from "../../lib/api";
+import { opsPostRequest } from "../../lib/api";
 import { queryKeys } from "../queryKeys";
 const fetchItems = async (props: any) => {
   const { category } = props;
@@ -7,12 +7,16 @@ const fetchItems = async (props: any) => {
   if (!(category === "All")) {
     query = `?category=${category}`;
   }
+  const token = String(
+    localStorage.getItem("auth") || sessionStorage.getItem("auth")
+  );
 
   try {
-    const response = await opsGetRequest(`/item${query}`);
-    query = "";
+    const response = await opsPostRequest(`/getItem${query}`, {
+      authToken: token,
+    });
     if (response.success) {
-      return response.data;
+      return response.items;
     }
   } catch (err) {
     console.log(err);

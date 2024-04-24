@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAuthStore } from "../managers/authStore";
+import { useAuthStore } from "../authstore/store";
 import { useCartItemMutation } from "../services/data/useCartItemMutation";
 import { useCartListQuery } from "../services/data/useCartListQuery";
 import useDebounce from "./useDebounce";
@@ -54,7 +54,6 @@ export const useCartItemSync: (
     };
     fun();
   }, [debouncedDisplayCount]);
-
   useEffect(() => {
     if (!cartList.isLoading && cartList.data) {
       const target = cartList.data.find((ct: any) => ct.itemId === item.itemId);

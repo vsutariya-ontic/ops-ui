@@ -21,7 +21,7 @@ const addNewUser = async (state: AuthFormState, role: string) => {
   }
 };
 
-export const useSignupMutation = () => {
+export const useAddUser = () => {
   const navigate = useNavigate();
 
   return useMutation({

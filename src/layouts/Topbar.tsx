@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box } from "@mui/material";
 import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "../managers/authStore";
+import { useAuthStore } from "../authstore/store";
 import { useThemeStore } from "../theme/theme";
 
 const Topbar = (props: any) => {

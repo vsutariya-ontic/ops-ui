@@ -1,9 +1,9 @@
-import { useTheme } from "@emotion/react";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, MenuItem, TextField, Typography } from "@mui/material";
 import { useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useCreateNewItemMutation } from "../../../services/data/useCreateNewItemMutation";
+import { useTheme } from "@emotion/react";
 
 const categories = ["Fast Food", "Fruits", "Desserts", "Beverages", "Snacks"];
 interface CreateNewItemProps {
@@ -18,7 +18,7 @@ export const CreateNewItemForm = (props: CreateNewItemProps) => {
     const [formData, setFormData] = useState<any>({
         itemName: "",
         category: "",
-        timeToMake: "",
+        timeToPrepare: "",
         ingredients: "",
         imageUrl: "",
     });
@@ -41,7 +41,7 @@ export const CreateNewItemForm = (props: CreateNewItemProps) => {
             setFormData({
                 itemName: "",
                 category: "",
-                timeToMake: 0,
+                timeToPrepare: 0,
                 ingredients: "",
                 imageUrl: "",
             });
@@ -104,8 +104,8 @@ export const CreateNewItemForm = (props: CreateNewItemProps) => {
                     <TextField
                         label="Time to prepare (in minutes)"
                         type="number"
-                        name="timeToMake"
-                        value={formData.timeToMake}
+                        name="timeToPrepare"
+                        value={formData.timeToPrepare}
                         onChange={handleInputChange}
                         fullWidth
                         margin="normal"

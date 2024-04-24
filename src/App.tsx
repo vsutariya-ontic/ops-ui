@@ -1,10 +1,10 @@
-import { Box, CircularProgress, ThemeProvider } from "@mui/material";
+import { useAuthStore } from "./authstore/store";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Topbar from "./layouts/Topbar";
-import { useAuthStore } from "./managers/authStore";
 import { routes } from "./routes";
-import { useValidateTokenQuery } from "./services/auth/useValidateTokenQuery";
+import { Box, CircularProgress, ThemeProvider } from "@mui/material";
 import { useThemeStore } from "./theme/theme";
+import { useValidateTokenQuery } from "./services/auth/useValidateTokenQuery";
+import Topbar from "./layouts/Topbar";
 
 export const App = () => {
     const theme = useThemeStore((state: any) => state.theme);

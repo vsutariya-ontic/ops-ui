@@ -1,4 +1,3 @@
-/* Logic shifted to usePutOrderMutation */
 import { useMutation, useQueryClient } from "react-query";
 import { opsPostRequest } from "../../lib/api";
 import { queryKeys } from "../queryKeys";
