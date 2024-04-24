@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAuthStore } from "../authstore/store";
+import { useAuthStore } from "../managers/authStore";
 import { useCartItemMutation } from "../services/data/useCartItemMutation";
 import { useCartListQuery } from "../services/data/useCartListQuery";
 import useDebounce from "./useDebounce";

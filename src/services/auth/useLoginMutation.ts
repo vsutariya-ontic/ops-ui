@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "../../authstore/store";
 import { opsPostRequest } from "../../lib/api";
+import { useAuthStore } from "../../managers/authStore";
 interface UseLoginMutationProps {
   rememberMe: boolean;
 }
@@ -38,6 +38,8 @@ export const useLoginMutation = (props: UseLoginMutationProps) => {
           userLastName: response.data.userLastName,
           teamId: response.data.teamId,
           role: response.data.userRole.toLowerCase(),
+          defaultTable: response.data?.defaultTable,
+          userId: response.data.userId,
         });
 
         Cookies.set("auth", response.data.authToken);

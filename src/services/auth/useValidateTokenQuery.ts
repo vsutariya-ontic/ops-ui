@@ -1,6 +1,6 @@
 import { UseQueryOptions, useQuery } from "react-query";
-import { useAuthStore } from "../../authstore/store";
 import { opsGetRequest } from "../../lib/api";
+import { useAuthStore } from "../../managers/authStore";
 import { queryKeys } from "../queryKeys";
 
 const fetchTokenValidity = async (login: Function, logout: Function) => {
