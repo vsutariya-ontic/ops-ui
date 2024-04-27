@@ -1,7 +1,8 @@
 import { Grid, LinearProgress } from "@mui/material";
 import GhostItem from "../../../../components/GhostItem";
 import { useAuthStore } from "../../../../managers/authStore";
-import { useItemListQuery } from "../../../../services/data/useItemListQuery";
+import { useItemListQuery } from "../../../../services/data/item/useItemListQuery";
+import { Item } from "../../../../types/general";
 import { CreateNewItemButton } from "../../../pantryboy/createitem/CreateNewItemButton";
 import { MenuItemCard } from "./MenuItemCard";
 

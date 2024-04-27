@@ -1,3 +1,4 @@
+// deprecated
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../managers/authStore";
 import { useCartItemMutation } from "../services/data/useCartItemMutation";
@@ -11,6 +12,7 @@ interface UseCartItemSyncReturn {
   deleteCartItem: Function;
   isLoading: boolean;
 }
+
 export const useCartItemSync: (
   item: any,
   debounceDurationInMilliseconds: number

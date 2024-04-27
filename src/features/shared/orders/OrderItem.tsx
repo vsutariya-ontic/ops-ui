@@ -2,6 +2,7 @@ import { Button, Menu, MenuItem, Paper } from "@mui/material";
 import { useState } from "react";
 import { useAuthStore } from "../../../managers/authStore";
 import { useUpdateOrderStatusMutation } from "../../../services/data/useUpdateOrderStatusMutation";
+import { Item, Order, OrderStatus } from "../../../types/general";
 
 interface OrderItemProps {
   order: Order;
@@ -13,12 +14,15 @@ export const OrderItem = (props: OrderItemProps) => {
   const role = useAuthStore((state) => state.role);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const orderStatusMutation = useUpdateOrderStatusMutation();
   const getStatus = (status: string) => {
     switch (status) {
@@ -88,7 +92,9 @@ export const OrderItem = (props: OrderItemProps) => {
       <div className="flex justify-between space-x-8 md:space-x-12 lg:space-x-16 xl:space-x-20">
         <div className="flex flex-col justify-center h-full">
           {role === "pantryboy" && (
-            <span className="text-sm md:text-md">{order.userName}</span>
+            <span className="text-sm md:text-md">
+              {order.userData.userFirstName}
+            </span>
           )}
           <span className="text-xs md:text-sm text-gray-500">
             Table : {order.tableNo}
@@ -99,10 +105,10 @@ export const OrderItem = (props: OrderItemProps) => {
         </div>
         <div className="hidden md:flex flex-col justify-center h-full">
           <span className="text-xs md:text-sm text-gray-500">
-            {order.orderDateTime.slice(0, 10)}
+            {String(order.createdTime)}
           </span>
           <span className="text-sm md:text-md">
-            {order.orderDateTime.slice(11, 16)}
+            {String(order.createdTime)}
           </span>
         </div>
         <div className="flex h-full items-center">
@@ -127,7 +133,7 @@ export const OrderItem = (props: OrderItemProps) => {
                   onClick={() => {
                     orderStatusMutation.mutateAsync({
                       orderId: order.orderId,
-                      newStatus: "preparing",
+                      status: OrderStatus.ACCEPTED,
                     });
                   }}
                 >
@@ -140,7 +146,7 @@ export const OrderItem = (props: OrderItemProps) => {
                   onClick={() => {
                     orderStatusMutation.mutateAsync({
                       orderId: order.orderId,
-                      newStatus: "completed",
+                      status: OrderStatus.COMPLETED,
                     });
                   }}
                 >

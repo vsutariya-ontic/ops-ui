@@ -19,7 +19,8 @@ const DEFAULT_CART_MANAGER_STATE = {
   status: "IN_CART",
 };
 
-export const useCartManager = create<CartManager>((set, state) => {
+// not using because hook is easy and more convenient way
+const useCartManager = create<CartManager>((set, state) => {
   return {
     ...DEFAULT_CART_MANAGER_STATE,
     init: async (orderQueryFn: Function) => {

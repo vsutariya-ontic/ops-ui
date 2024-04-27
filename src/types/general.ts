@@ -10,7 +10,7 @@ export interface Item {
   ingredients?: string;
   itemId: string;
   itemName: string;
-  quantity_left: number;
+  quantityLeft?: number;
   timeToMake: number;
 }
 
@@ -24,18 +24,19 @@ export interface CartItem {
 export interface Order {
   instructions: string;
   itemId: string;
-  orderDateTime: string;
+  userData: any;
   orderId: string;
   quantity: number;
   status: string;
   tableNo: number;
   userId: string;
-  userName: string;
+  createdTime: any;
 }
 
 export interface Table {
-  tableNo: number;
-  teamId: string;
+  tableNo?: number | string;
+  tableId: string;
+  tableName?: string;
 }
 
 export enum OrderStatus {

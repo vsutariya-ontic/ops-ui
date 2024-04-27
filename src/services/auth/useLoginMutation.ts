@@ -25,7 +25,9 @@ const fetchLoginInfo = async (loginRequestData: UserLoginRequest) => {
 };
 export const useLoginMutation = (props: UseLoginMutationProps) => {
   const { rememberMe } = props;
+
   const navigate = useNavigate();
+
   const login = useAuthStore((state) => state.login);
 
   return useMutation({

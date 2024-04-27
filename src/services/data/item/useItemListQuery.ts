@@ -1,6 +1,6 @@
 import { UseQueryOptions, useQuery } from "react-query";
-import { opsPostRequest } from "../../lib/api";
-import { queryKeys } from "../queryKeys";
+import { opsGetRequest } from "../../../lib/api";
+import { queryKeys } from "../../queryKeys";
 const fetchItems = async (props: any) => {
   const { category } = props;
   let query = "";
@@ -12,11 +12,10 @@ const fetchItems = async (props: any) => {
   );
 
   try {
-    const response = await opsPostRequest(`/getItem${query}`, {
-      authToken: token,
-    });
+    const response = await opsGetRequest(`/item${query}`);
+
     if (response.success) {
-      return response.items;
+      return response.data;
     }
   } catch (err) {
     console.log(err);

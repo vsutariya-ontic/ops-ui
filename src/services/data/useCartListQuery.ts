@@ -1,3 +1,4 @@
+// deprecated
 import { UseQueryOptions, useQuery } from "react-query";
 import { opsPostRequest } from "../../lib/api";
 import { useAuthStore } from "../../managers/authStore";

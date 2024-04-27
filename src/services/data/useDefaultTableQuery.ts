@@ -1,3 +1,4 @@
+// deprecated
 import { UseQueryOptions, useQuery } from "react-query";
 import { opsPostRequest } from "../../lib/api";
 import { useAuthStore } from "../../managers/authStore";
@@ -8,6 +9,7 @@ const fetchDefaultTable = async (userEmail: string) => {
     const response = await opsPostRequest("/get-default-table", {
       userEmail: userEmail,
     });
+
     if (response.success) return response.table;
     else return null;
   } catch (err) {
@@ -15,6 +17,7 @@ const fetchDefaultTable = async (userEmail: string) => {
     return null;
   }
 };
+
 export const useDefaultTableQuery = (options?: UseQueryOptions<any>) => {
   const userEmail = useAuthStore((state) => state.email);
   return useQuery({

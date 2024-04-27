@@ -1,8 +1,8 @@
 /* Ready with db2 */
 import { UseQueryOptions, useQuery } from "react-query";
-import { opsGetRequest } from "../../lib/api";
-import { useAuthStore } from "../../managers/authStore";
-import { queryKeys } from "../queryKeys";
+import { opsGetRequest } from "../../../lib/api";
+import { useAuthStore } from "../../../managers/authStore";
+import { queryKeys } from "../../queryKeys";
 
 const fetchOrder = async (status: string) => {
   try {

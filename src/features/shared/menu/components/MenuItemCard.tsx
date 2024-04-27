@@ -2,35 +2,29 @@ import { useTheme } from "@emotion/react";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, ButtonGroup, Paper, Tooltip, Typography } from "@mui/material";
-import { useCartItemSync } from "../../../../hooks/useCartItemSync";
+import { useCartManager } from "../../../../hooks/useCartManager";
 import { useAuthStore } from "../../../../managers/authStore";
-import { useCartItemMutation } from "../../../../services/data/useCartItemMutation";
 
 export const MenuItemCard = (props: any) => {
   const { palette }: any = useTheme();
-  const userEmail = useAuthStore((state) => state.email);
   const role = useAuthStore((state) => state.role);
   const { item }: any = props;
-  const mutation = useCartItemMutation(userEmail, String(item.itemId));
-  const {
-    displayCount,
-    increaseCount,
-    decreaseCount,
-    deleteCartItem,
-    isLoading,
-  } = useCartItemSync(item, 300);
-  const add = () => {
-    increaseCount();
+
+  const cartManager = useCartManager();
+
+  const count = cartManager.getItemCount(item.itemId);
+  console.log("item-count-in-cart", count);
+  const add = async () => {
+    await cartManager.updateItemCount(item, count + 1);
   };
-  const remove = () => {
-    if (displayCount > 1) {
-      decreaseCount();
+  const remove = async () => {
+    if (count > 1) {
+      await cartManager.updateItemCount(item, count - 1);
     }
   };
-  const reset = () => {
-    deleteCartItem();
+  const reset = async () => {
+    await cartManager.updateItemCount(item, 0);
   };
-
   return (
     <Paper
       elevation={1}
@@ -57,13 +51,17 @@ export const MenuItemCard = (props: any) => {
       </Tooltip>
       {role === "employee" && (
         <>
-          {displayCount ? (
+          {count ? (
             <div className="flex justify-evenly py-4">
               <div className="flex">
                 <ButtonGroup size="small">
-                  <Button onClick={remove}>-</Button>
-                  <Button className="cursor-default">{displayCount}</Button>
-                  <Button onClick={add}>+</Button>
+                  <Button onClick={remove} disabled={cartManager.isLoading}>
+                    -
+                  </Button>
+                  <Button className="cursor-default">{count}</Button>
+                  <Button onClick={add} disabled={cartManager.isLoading}>
+                    +
+                  </Button>
                 </ButtonGroup>
               </div>
               <button onClick={reset} className="rounded-full">
@@ -83,7 +81,7 @@ export const MenuItemCard = (props: any) => {
                   size="small"
                   className="px-3 py-1 rounded-xl"
                   onClick={add}
-                  disabled={isLoading}
+                  disabled={cartManager.isLoading}
                 >
                   Add to cart
                 </Button>
