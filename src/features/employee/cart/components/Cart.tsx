@@ -8,11 +8,13 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import _isEqual from "lodash/isEqual";
 import { useEffect, useState } from "react";
 import { useCartManager } from "../../../../hooks/useCartManager";
 import { useAuthStore } from "../../../../managers/authStore";
 import { useCartQuery } from "../../../../services/data/cart/useCartQuery";
 import { usePostOrderMutation } from "../../../../services/data/order/usePostOrderMutation";
+import { useSetDefaultTableMutation } from "../../../../services/data/table/useSetDefaultTableMutation";
 import { useTableListQuery } from "../../../../services/data/table/useTableListQuery";
 import { Table } from "../../../../types/general";
 import { CartItem } from "./CartItem";
@@ -36,11 +38,12 @@ export const Cart = (props: CartProps) => {
   const tableList = useTableListQuery();
   const tables = tableList.data;
   const defaultTable = useAuthStore((state) => state.defaultTable);
-
+  const setState = useAuthStore((state) => state.setState);
   const postOrderMutation = usePostOrderMutation();
+  const setDefaultTableMutation = useSetDefaultTableMutation();
 
   useEffect(() => {
-    if (defaultTable) {
+    if (defaultTable && tables) {
       const targetObject = tables.find(
         (elem: any) => elem.tableId === defaultTable.tableId
       );
@@ -52,7 +55,7 @@ export const Cart = (props: CartProps) => {
         });
       }
     }
-  }, [defaultTable]);
+  }, [defaultTable, tables]);
 
   const handlePlaceOrder = async (e: any) => {
     e.preventDefault();
@@ -65,6 +68,14 @@ export const Cart = (props: CartProps) => {
         items: cartManager.items,
         table: formState.table,
       });
+
+      const responseT =
+        !_isEqual(defaultTable, formState.table) &&
+        (await setDefaultTableMutation.mutateAsync(formState.table));
+
+      if (responseT?.success) {
+        setState({ defaultTable: responseT.data });
+      }
 
       if (response.success) {
         setFormState({
@@ -114,9 +125,7 @@ export const Cart = (props: CartProps) => {
                   });
                 }}
                 id="combo-box-demo"
-                options={
-                  !tableList.isLoading && tableList.data ? tableList.data : []
-                }
+                options={tables || []}
                 value={formState.table}
                 getOptionLabel={(tableItem: Table) =>
                   String(tableItem?.tableName || tableItem.tableNo)

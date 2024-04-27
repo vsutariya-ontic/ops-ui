@@ -27,9 +27,9 @@ export const useValidateTokenQuery = (options?: UseQueryOptions<any>) => {
           userFirstName: response.data.userFirstName,
           userLastName: response.data.userLastName,
           teamId: response.data.teamId,
-          role: response.data.userRole,
-          userId: response.userId,
-          defaultTable: response.defaultTable,
+          role: response.data.userRole.toLowerCase(),
+          userId: response.data.userId,
+          defaultTable: response.data.defaultTable,
         });
       } else {
         localStorage.removeItem("auth");

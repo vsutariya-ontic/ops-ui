@@ -32,6 +32,7 @@ export interface AuthStore {
   userId: string;
   login: (props: LoginProps) => void;
   logout: () => void;
+  setState: Function;
 }
 export const useAuthStore = create<AuthStore>((set, state) => {
   return {
@@ -47,6 +48,11 @@ export const useAuthStore = create<AuthStore>((set, state) => {
       sessionStorage.removeItem("auth");
       Cookies.remove("auth");
       set(DEFAULT_AUTH_STATE);
+    },
+    setState: (ns: any) => {
+      set({
+        ...ns,
+      });
     },
   };
 });
